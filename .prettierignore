@@ -1,0 +1,4 @@
+dist
+coverage
+yarn.lock
+node_modules
