@@ -12,6 +12,8 @@
     "build": "yarn run build:self && yarn run build:esm && yarn run build:aio",
     "prepare": "husky install",
     "lint": "eslint src config",
+    "test": "echo run test",
+    "lint:prettier": "prettier --check .",
     "ci": "commit",
     "cz": "git-cz"
   },

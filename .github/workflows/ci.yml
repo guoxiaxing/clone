@@ -1,0 +1,40 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  commitlint: 
+    runs-on: ubuntu-latest # 制定运行环境
+    steps:
+      - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+      - uses: wagoid/commitlint-github-actions@v4
+  lint:
+    needs: commitlint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16.x
+      uses: actions/setup-node@v3
+      with: 
+        node-version: '16.x'
+        cache: 'yarn'
+      - run: yarn ci
+      - run: yarn run  
+      - run: yarn lint
+  test:
+   needs: lint
+   runs-on: ubuntu-latest
+   steps:
+    - uses: actions/checkout@v3
+    - run: yarn test
+
+
