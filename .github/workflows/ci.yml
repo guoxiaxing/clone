@@ -26,8 +26,8 @@ jobs:
         with: 
           node-version: '16.x'
           cache: 'yarn'
-      - run: yarn ci
-      - run: yarn run  
+      - run: yarn
+      - run: yarn lint:prettier
       - run: yarn lint
   test:
     needs: lint
