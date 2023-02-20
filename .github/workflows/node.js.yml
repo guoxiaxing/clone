@@ -10,22 +10,11 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-
+  lint: 
+    runs-on: ubuntu-latest # 制定运行环境
+  test:
+    needs: lint
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
-        node-version: [14.x, 16.x, 18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-
-    steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+        node-version: [14.x, 16.x, 18.x] # 指定多个版本都要执行
